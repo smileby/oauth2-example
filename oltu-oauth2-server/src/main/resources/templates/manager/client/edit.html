@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link th:href="@{/static/css/css.css}" href="/static/css/css.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+            </ul>
+        </nav>
+        <h3 class="text-muted">OAuth2 Server 应用</h3>
+    </div>
+    <form method="post" th:action="${action_url}" th:object="${client}" commandName="client"  cssClass="form-inline">
+        <input style="display:none" name="id" th:value="${client.id}"/>
+        <input style="display:none" name="clientId" th:value="${client.clientId}"/>
+        <input style="display:none" name="clientSecret" th:value="${client.clientSecret}"/>
+        <div class="form-group">
+            <label>客户端名称：</label>
+            <input name="clientName" th:value="${client.clientName}"/>
+        </div>
+        <button th:text="${buttonName}" class="btn btn-default"></button>
+    </form>
+</div>
+</body>
+</html>

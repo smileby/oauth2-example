@@ -1,0 +1,27 @@
+#mysql
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/oauth2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: root
+    password: root
+  devtools: # 启用热部署
+      restart:
+        enabled: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  resources:
+    static-locations: classpath:/static/
+  mvc:
+    static-path-pattern: /static/**
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 3000
+
+password:
+  algorithmName: md5  # md5,sha-1,sha-256
+  hashIterations: 2

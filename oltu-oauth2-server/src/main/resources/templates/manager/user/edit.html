@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link th:href="@{/static/css/css.css}" href="/static/css/css.css" rel="stylesheet"></head>
+</head>
+<body>
+<div class="container">
+
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+            </ul>
+        </nav>
+        <h3 class="text-muted">OAuth2 Server 用户</h3>
+    </div>
+    <form method="post" th:action="${action_url}" th:object="${user}" commandName="user" cssClass="form-inline">
+        <form style="display:none" name="id" th:value="${user.id}"/>
+        <form style="display:none" name="salt" th:value="${user.salt}"/>
+        <div th:if="${buttonName != '新增'}">
+            <form style="display:none" name="password" th:value="${user.password}"/>
+        </div>
+
+        <div class="form-group">
+            <label>用户名：</label>
+            <input name="username" th:value="${user.username}"/>
+        </div>
+        <div th:if="${buttonName == '新增'}">
+            <div class="form-group">
+                <label>密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+                <input type="password" name="password"/>
+            </div>
+        </div>
+
+        <input type="submit" th:value="${buttonName}" class="btn btn-default">
+    </form>
+</div>
+</body>
+</html>

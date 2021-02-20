@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Oauth2 Server 客户端管理</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link th:href="@{/static/css/css.css}" href="/static/css/css.css" rel="stylesheet"></head>
+<body>
+<div class="container">
+    <span style="float: right; margin-right:50px;" class="btn btn-default navbar-btn" type="button">
+        <a href="/">返回主页</a>
+    </span>
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+            </ul>
+        </nav>
+        <h3 class="text-muted">OAuth2 Server 应用列表</h3>
+    </div>
+
+    <div class="alert alert-success" role="alert" th:if="${msg}">
+        <p th:text="${msg}"></p>
+    </div>
+
+    <div type="button" class="btn btn-info navbar-btn">
+        <a href="clientAdd" style="color: white;font-weight:bold;">客户端接入</a>
+    </div>
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>客户端名</th>
+            <th>客户端ID（client_id）</th>
+            <th>客户端安全KEY（client_secret）</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="client : ${clientList}">
+                <td th:text="${client.clientName}"></td>
+                <td th:text="${client.clientId}"></td>
+                <td th:text="${client.clientSecret}"></td>
+                <td>
+                    <a th:href="@{'/page/clientUpdate/' + ${client.id}}">修改</a>
+                    <a th:href="@{'/client/delete/' + ${client.id}}">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <footer class="footer">
+        <p>&copy; Company 2021</p>
+    </footer>
+</div>
+</body>
+</html>
