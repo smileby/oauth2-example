@@ -49,6 +49,8 @@ public class AuthorizeController {
     /**
      * 对外开放的授权接口
      *      第三方通过code进行获取 access_token的时候需要用到，code的超时时间为10分钟，一个code只能成功换取一次access_token即失效。
+     *
+     * http://localhost:8080/authorize?password=admin&response_type=code&redirect_uri=www.codegot.com&client_id=6b758a22-e580-47b0-92cb-aff6e1afa219&username=admin
      * @return
      */
     @RequestMapping(value = "/authorize")

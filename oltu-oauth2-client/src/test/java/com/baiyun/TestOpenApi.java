@@ -41,12 +41,12 @@ public class TestOpenApi {
 
     public static void main(String[] args) throws Exception{
         String authCode = getAuthCode();
-        String accessToken = getAccessToken(authCode);
+//        String accessToken = getAccessToken(authCode);
         /**
          * 获取参数的方式，由服务端进行定义，调整时需要服务端进行调整
          */
 //        getResult1(accessToken); // Query方式传递token
-        getResult2(accessToken); // Header方式传递token
+//        getResult2(accessToken); // 111 Header方式传递token
 //        getResult3("981708d92724688112362eb6bf4a2ba7"); // Body方式传递token
 
     }
@@ -216,7 +216,7 @@ public class TestOpenApi {
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         connection.setRequestProperty("Content-Length", String.valueOf(postStrBytes.length));
         connection.getOutputStream().write(postStrBytes);
-        connection.setInstanceFollowRedirects(false);// 必须设置该属性
+        connection.setInstanceFollowRedirects(false);// 必须设置该属性,否则将会自动处理重定向请求
 
         String response = getResponse(connection);
 

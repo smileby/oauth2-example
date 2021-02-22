@@ -10,6 +10,7 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link th:href="@{/static/css/css.css}" href="/static/css/css.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -22,18 +23,22 @@
             <h3 class="text-muted">OAuth2 Server</h3>
         </div>
     </div>
-    <div th:if="${client.clientName}">
-        <span class="label label-info">应用<small>${client.clientName}</small>请求接入开放数据平台</span>
+    <div class="label label-info" th:if="${client.clientName}">
+        <div class="col-lg-10">
+            <span class="text-muted">应用<p style="display: inline;" th:text="${client.clientName}"></p>请求接入开放数据平台</span>
+        </div>
     </div>
-    <div th:if="${error}">
-        <div class="alert alert-danger" role="alert">${error}</div>
+    <div class="alert alert-danger" role="alert" th:if="${error}">
+        <div class="col-lg-10">
+            <p th:text="${error}"></p>
+        </div>
     </div>
     <div class="row marketing">
         <div class="col-lg-10">
             <form class="form-horizontal" method="post" action="">
-                <input type="hidden" name="client_id" value="${client_id}">
-                <input type="hidden" name="response_type" value="${response_type}">
-                <input type="hidden" name="redirect_uri" value="${redirect_uri}">
+                <input type="hidden" name="client_id"  th:value="${client_id}">
+                <input type="hidden" name="response_type"  th:value="${response_type}">
+                <input type="hidden" name="redirect_uri"  th:value="${redirect_uri}">
                 <div class="form-group">
                     <label for="username" class="col-sm-4 control-label">用户名</label>
                     <div class="col-sm-8">

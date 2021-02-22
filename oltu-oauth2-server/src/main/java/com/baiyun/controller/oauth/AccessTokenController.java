@@ -15,6 +15,9 @@ import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
+import org.apache.oltu.oauth2.common.message.types.ParameterStyle;
+import org.apache.oltu.oauth2.rs.request.OAuthAccessResourceRequest;
+import org.apache.oltu.oauth2.rs.response.OAuthRSResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -213,6 +216,27 @@ public class AccessTokenController {
                     .buildJSONMessage();
             return new ResponseEntity(res.getBody(), headers, HttpStatus.valueOf(res.getResponseStatus()));
         }
+    }
+
+    @RequestMapping("/validateToken")
+    public ResponseEntity validateToken(HttpServletRequest request) throws OAuthProblemException, OAuthSystemException {
+
+        // 构建OAuth资源请求
+        OAuthAccessResourceRequest resourceRequest = new OAuthAccessResourceRequest(request, ParameterStyle.HEADER);
+
+        // 获取访问令牌access Token
+        String accessToken = resourceRequest.getAccessToken();
+        // 验证访问令牌
+        if (!oAuthService.checkAccessToken(accessToken)) {
+            // 如果不存在或过期了，返回未验证错误，需重新验证
+            OAuthResponse response = OAuthRSResponse
+                    .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
+                    .setError(OAuthError.ResourceResponse.INVALID_TOKEN)
+                    .setErrorDescription("访问令牌不存在或已过期，请重新验证")
+                    .buildJSONMessage();
+            return new ResponseEntity(response.getBody(), HttpStatus.valueOf(response.getResponseStatus()));
+        }
+        return new ResponseEntity("token可正常使用", HttpStatus.valueOf(HttpServletResponse.SC_OK));
     }
 
     /**

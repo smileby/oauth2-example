@@ -3,9 +3,22 @@ https://oauth.net/code/java/
 ## apache olth
 http://oltu.apache.org/
 
-## OAuth2的四种授权场景
-> 1、授权码（authorization code）方式，指的是第三方应用先申请一个授权码，然后再用该码获取令牌。
-> 2、隐藏式（implicit）允许直接向前端颁发令牌。这种方式没有授权码这个中间步骤，所以称为（授权码）"隐藏式"。
-> 3、密码式（password）允许用户把用户名和密码，直接告诉该应用。该应用就使用你的密码，申请令牌，这种方式称为"密码式"。
-> 4、凭证式（client credentials）适用于没有前端的命令行应用，即在命令行下请求令牌。
+## 大致流程
+（A）用户访问客户端，客户端将用户导向认证服务器。
+（B）用户给予客户端授权。
+（C）用户给予授权后，认证服务器将用户导向客户端事先指定的"重定向URI"（redirection URI），同时附上一个授权码。
+（D）客户端收到授权码，附上早先的"重定向URI"，向认证服务器申请令牌。这一步是在客户端的后台的服务器上完成的，对用户不可见。
+（E）认证服务器核对了授权码和重定向URI，确认无误后，向客户端发送访问令牌（access token）和更新令牌（refresh token）。
+（F）客户端使用令牌（access token）获取服务端接口信息
 
+## Documentation
+https://cwiki.apache.org/confluence/display/OLTU/Documentation
+https://cwiki.apache.org/confluence/display/OLTU/OAuth+2.0+Authorization+Server
+https://cwiki.apache.org/confluence/display/OLTU/OAuth+2.0+Resource+Server
+
+## demo参考
+https://svn.apache.org/repos/asf/oltu/trunk/demos/client-demo/
+https://www.cnblogs.com/hujunzheng/p/7126766.html?utm_source=debugrun&utm_medium=referral
+
+##参考资料： 
+> oauth2的四种服务端实现 https://github.com/spring2go/oauth2lab  

@@ -22,6 +22,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +39,13 @@ public class UserInfoController {
 
     @Autowired
     private UserService userService;
+
+    @RequestMapping("/postRequest")
+    public HttpEntity postRequest(@RequestBody  User user, HttpServletRequest request){
+        String key = request.getHeader("key");
+        System.out.println("header中设置的参数：" + key);
+        return new ResponseEntity("接收到的信息：" + JSON.toJSONString(user), HttpStatus.OK);
+    }
 
     @RequestMapping("/getUserInfo")
     public HttpEntity getUserInfo(){
